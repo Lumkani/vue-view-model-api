@@ -1,0 +1,18 @@
+{
+  "name": "@lumkani/view-model-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Lumkani/vue-view-model-api.git",
+  "author": "shailen <shailen@lumkani.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/vuelidate": "^0.7.8",
+    "typescript": "^3.6.4",
+    "vue": "^2.6.10",
+    "vuelidate": "^0.7.4",
+    "vuex": "^3.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
