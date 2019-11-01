@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import * as validators from 'vuelidate/lib/validators'
 import {
   mapState,
@@ -91,13 +90,3 @@ export const ViewModelPlugin = {
     })
   },
 }
-
-Vue.use({
-  install(vue) {
-    vue.mixin({
-      beforeCreate() {
-        this.$options
-      }
-    })
-  }
-})
