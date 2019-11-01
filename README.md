@@ -4,6 +4,20 @@ The ViewModel API is an attempt to solve some of the challenges that we face whe
 
 In many cases, we tend to put our business logic into out components so if we just want to test a `method` you have to go through the process of mounting your component. We come out with this solution at Lumkani which allows us to inject a Vue instance into what ever we need, so we don't have to rely on `this`
 
+### Installation
+
+```shell
+$ yarn add @lumkani/view-model-api
+```
+<br>
+
+```javascript
+import Vue from 'vue'
+import { ViewModelPlugin } from '@lumkani/view-model-api'
+
+Vue.use(ViewModelPlugin)
+```
+
 ### Basic example
 
 #### Before
