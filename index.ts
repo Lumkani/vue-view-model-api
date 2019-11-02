@@ -79,10 +79,6 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
 export const ViewModelPlugin = {
   install(vue: Vue.VueConstructor, options: ViewModelConfig = {}) {
-    vue.prototype.$loader = options.loader
-    vue.prototype.$snackbar = options.snackbar
-    vue.prototype.$lk = options.lk
-
     vue.mixin({
       beforeCreate() {
         convertClassViewModelToOptionsAPI(this, options)

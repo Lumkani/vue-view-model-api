@@ -9,10 +9,24 @@
   dependencies:
     vue "^2.5.16"
 
+events@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-3.0.0.tgz#9a0a0dfaf62893d92b875b8f2698ca4114973e88"
+  integrity sha512-Dc381HFWJzEOhQ+d8pkNon++bk9h6cdAoAj4iE6Q4y6xgTzySWXlKn05/TVNpjnfRqi/X0EpJEJohPjNI3zpVA==
+
 typescript@^3.6.4:
   version "3.6.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.4.tgz#b18752bb3792bc1a0281335f7f6ebf1bbfc5b91d"
   integrity sha512-unoCll1+l+YK4i4F8f22TaNVPRHcD9PA3yCuZ8g5e0qGqlVlJ/8FSateOLLSagn+Yg5+ZwuPkL8LFUc0Jcvksg==
+
+veduxjs@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/veduxjs/-/veduxjs-0.0.6.tgz#65dff37a4dd7311c021179c932d196268ff00e5c"
+  integrity sha512-ig9/BytWWxomEsRx85Z0UMZvHYOcqA15risFv4Ok7HKHhxW4HkgXTt8nZJ9QR2UYZsmnnGt+udd+bq8JWxiv7w==
+  dependencies:
+    events "^3.0.0"
+    typescript "^3.6.4"
+    vue "^2.6.10"
 
 vue@^2.5.16, vue@^2.6.10:
   version "2.6.10"
