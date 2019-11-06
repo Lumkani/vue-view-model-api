@@ -1,3 +1,5 @@
 node_modules
+docs/node_modules
+.vuepress/dist
 *.js
 *.d.ts
