@@ -18,6 +18,5 @@
   },
   "scripts": {
     "prepublish": "npx tsc",
-    "docs:build": "cp ./README.md ./docs/README.md && cd ./docs && npx vuepress build"
   }
 }
