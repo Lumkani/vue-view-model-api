@@ -17,6 +17,6 @@
     "access": "public"
   },
   "scripts": {
-    "prepublish": "npx tsc",
+    "prepublish": "npx tsc"
   }
 }
