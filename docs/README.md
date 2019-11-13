@@ -1,15 +1,14 @@
-## Vue - ViewModel API
+# View Model API
 
-The ViewModel API is an attempt to solve some of the challenges that we face when testing Vue applications.
+## Summary
 
-In many cases, we tend to put our business logic into out components so if we just want to test a `method` you have to go through the process of mounting your component. We come out with this solution at Lumkani which allows us to inject a Vue instance into what ever we need, so we don't have to rely on `this`
+An alternative to the Options API that relies on dependancy injection
 
-### Installation
+## Installation
 
 ```shell
 $ yarn add @lumkani/view-model-api
 ```
-<br>
 
 ```javascript
 import Vue from 'vue'
@@ -18,74 +17,41 @@ import { ViewModelPlugin } from '@lumkani/view-model-api'
 Vue.use(ViewModelPlugin)
 ```
 
-### Basic example
-
-#### Before
-
-```vue
-<template>
-  <p>{{ text }}</p>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      text: null
-    }
-  },
-  async mounted() {
-    this.text = await apis.someText()
-  }
-}
-</script>
-```
-
-#### After
-
-```vue
-<template>
-  <p>{{ text }}</p>
-</template>
-
-<script>
-import { TextViewModel as ViewModel } from './model'
-export default { ViewModel }
-</script>
-```
+## Basic Example
 
 ```javascript
 class TextViewModel {
   static data = () => ({
-    text: null,
+    text: null
   })
-
+  
   static mounted = async (vm) => {
-    vm.text = await apis.someText()
+    const textData = await someAPI()
+    
+    vm.text = textData
   }
 }
-
-export { TextViewModel }
 ```
 
-Now we are capable of dependency injection, so if we want to test the `mounted` function from the `TextViewModel` we can just do this:
+```vue
+<template>
+  <p>{{ text }}</p>
+</template>
 
-```javascript
+<script>
 import { TextViewModel as ViewModel } from './model'
 
-jest.mock('./apis')
-
-describe('Test TextViewModel', () => {
-  test('should update text property', async () => {
-    apis.someText.mockResolvedValue('Hello World')
-
-    const vm = {
-      text: null
-    }
-
-    await ViewModel.mounted(vm)
-
-    expect(vm.text).toBe('Hello World')
-  })
-})
+export default { ViewModel }
+</script>
 ```
+
+## Motivation
+
+Here at [Lumkani](https://lumkani.com), we love Vue as Vue is such an approachable frontend library or framework in some cases, but we found that if you want to test logic in a component you would need to mount the component just to test the logic and so with the ViewModel API, you can now write your logic without putting your JS in a Vue component
+
+The benefits for the team:
+
+1. A solid structure
+2. Easier to test
+3. Quicker to debug
+4. Code reviews become easier
