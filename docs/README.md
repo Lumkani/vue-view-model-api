@@ -2,7 +2,7 @@
 
 ## Summary
 
-An alternative to the Options API that relies on dependancy injection
+An additive way of writing Vue components with dependancy injection
 
 ## Installation
 
