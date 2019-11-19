@@ -5,6 +5,7 @@ module.exports = {
       '/guide/'
     ],
     sidebarDepth: 2,
-    displayAllHeaders: true
+    displayAllHeaders: true,
+    repo: 'Lumkani/vue-view-model-api'
   }
 }
