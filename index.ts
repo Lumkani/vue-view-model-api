@@ -30,8 +30,17 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     vuex = {},
     validations = () => ({}),
     data = () => ({}),
+    beforeCreate = () => {},
+    created = () => {},
+    beforeMount = () => {},
     mounted = () => {},
+    beforeUpdate = () => {},
+    updated = () => {},
+    beforeDestroy = () => {},
+    destroyed= () => {},
   } = ViewModel
+
+  beforeCreate(vm)
 
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
@@ -71,7 +80,13 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
     vm.$options.validations = isDynamicValidationFn ? () => validations(newValidators)(vm) : validations(newValidators)
 
+    addLifecycleHook(vm, 'created', created)
+    addLifecycleHook(vm, 'beforeMount', beforeMount)
     addLifecycleHook(vm, 'mounted', mounted)
+    addLifecycleHook(vm, 'beforeUpdate', beforeUpdate)
+    addLifecycleHook(vm, 'updated', updated)
+    addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
+    addLifecycleHook(vm, 'destroyed', destroyed)
 
     const res = vm.$options.data.apply(vm)
     vm.$options.data = () => ({ ...res, ...data(vm) })
