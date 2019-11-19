@@ -1,8 +1,12 @@
 # View Model API
 
+![](https://img.shields.io/npm/v/@lumkani/view-model-api)
+![](https://img.shields.io/npm/dw/@lumkani/view-model-api)
+![](https://img.shields.io/github/issues/Lumkani/vue-view-model-api)
+
 ## Summary
 
-An additive way of writing Vue components with dependancy injection
+An additive way of writing Vue components with dependency injection
 
 ## Installation
 
