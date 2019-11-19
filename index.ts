@@ -29,7 +29,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     const [newMethods, newComputedProps] = [methods, computed]
       .map(option => Object.keys(option).reduce((result: object, val: string) => ({
         ...result,
-        [val]: (e: Event) => option[val](vm, e),
+        [val]: (...args: any[]) => option[val](vm, ...args),
       }), {}))
 
     const {
