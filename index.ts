@@ -7,10 +7,18 @@ import {
 } from 'vuex'
 
 interface ViewModelConfig {
-  loader?: object;
-  snackbar?: object;
-  lk?: object;
   validators?: object;
+}
+
+const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
+  if (Array.isArray(vm.$options[hookName])) {
+    vm.$options[hookName] = [
+      ...vm.$options[hookName],
+      async () => hook(vm),
+    ]
+  } else {
+    vm.$options[hookName] = [async () => hook(vm)]
+  }
 }
 
 // @ts-ignore
@@ -22,8 +30,17 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     vuex = {},
     validations = () => ({}),
     data = () => ({}),
+    beforeCreate = () => {},
+    created = () => {},
+    beforeMount = () => {},
     mounted = () => {},
+    beforeUpdate = () => {},
+    updated = () => {},
+    beforeDestroy = () => {},
+    destroyed= () => {},
   } = ViewModel
+
+  beforeCreate(vm)
 
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
@@ -63,14 +80,13 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
     vm.$options.validations = isDynamicValidationFn ? () => validations(newValidators)(vm) : validations(newValidators)
 
-    if (Array.isArray(vm.$options.mounted)) {
-      vm.$options.mounted = [
-        ...vm.$options.mounted,
-        async () => mounted(vm),
-      ]
-    } else {
-      vm.$options.mounted = [async () => mounted(vm)]
-    }
+    addLifecycleHook(vm, 'created', created)
+    addLifecycleHook(vm, 'beforeMount', beforeMount)
+    addLifecycleHook(vm, 'mounted', mounted)
+    addLifecycleHook(vm, 'beforeUpdate', beforeUpdate)
+    addLifecycleHook(vm, 'updated', updated)
+    addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
+    addLifecycleHook(vm, 'destroyed', destroyed)
 
     const res = vm.$options.data.apply(vm)
     vm.$options.data = () => ({ ...res, ...data(vm) })

@@ -1,6 +1,6 @@
 {
   "name": "@lumkani/view-model-api",
-  "version": "1.1.0",
+  "version": "1.2.0-beta.1",
   "main": "index.js",
   "repository": "git@github.com:Lumkani/vue-view-model-api.git",
   "author": "shailen <shailen@lumkani.com>",
