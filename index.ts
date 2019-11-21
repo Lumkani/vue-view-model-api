@@ -1,4 +1,3 @@
-import * as validators from 'vuelidate/lib/validators'
 import {
   mapState,
   mapActions,
@@ -72,7 +71,6 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     }
 
     const newValidators = {
-      ...validators,
       ...options.validators
     }
 
