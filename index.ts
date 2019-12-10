@@ -7,6 +7,7 @@ import {
 
 interface ViewModelConfig {
   validators?: object;
+  config?: (vm: object, ctx: object) => void
 }
 
 const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
@@ -22,6 +23,7 @@ const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
 
 // @ts-ignore
 const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
+  const { config = () => {} } = options
   const { ViewModel = {} } = vm.$options
   const {
     methods = {},
@@ -38,6 +40,33 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     beforeDestroy = () => {},
     destroyed= () => {},
   } = ViewModel
+
+  config(vm, {
+    methods(cb: (arg: object) => object = () => ({})) {
+      vm.$options.methods = {
+        ...vm.$options.methods,
+        ...cb(vm.$options.methods)
+      }
+    },
+    data(cb: (arg: object) => object = () => ({})) {
+      const res = vm.$options.data.apply(vm)
+      vm.$options.data = () => ({ ...res, ...cb(vm) })
+    },
+    computed(cb: (arg: object) => object = () => ({})) {
+      vm.$options.computed = {
+        ...vm.$options.computed,
+        ...cb(vm.$options.computed)
+      }
+    },
+    addOption(obj: object) {
+      const keys = Object.keys(obj)
+
+      keys.forEach((key) => {
+        // @ts-ignore
+        vm.$options[key] = obj[key]
+      })
+    }
+  })
 
   beforeCreate(vm)
 
