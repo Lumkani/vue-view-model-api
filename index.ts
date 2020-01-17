@@ -91,7 +91,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     vm.$options.data = () => ({ ...res, ...data(vm) })
 
     const constantsObject = constants(vm)
-    const constantsKeys = Object.keys(constants(vm))
+    const constantsKeys = Object.keys(constantsObject)
 
     for (const key of constantsKeys) {
       Object.defineProperty(vm, key, {
