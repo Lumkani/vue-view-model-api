@@ -29,6 +29,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     vuex = {},
     validations = () => ({}),
     data = () => ({}),
+    constants = () => ({}),
     beforeCreate = () => {},
     created = () => {},
     beforeMount = () => {},
@@ -88,6 +89,18 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
     const res = vm.$options.data.apply(vm)
     vm.$options.data = () => ({ ...res, ...data(vm) })
+
+    const constantsObject = constants(vm)
+    const constantsKeys = Object.keys(constantsObject)
+
+    for (const key of constantsKeys) {
+      Object.defineProperty(vm, key, {
+        value: Object.freeze(constantsObject[key]),
+        writable: false,
+        configurable: false,
+        enumerable: false,
+      })
+    }
   }
 }
 
