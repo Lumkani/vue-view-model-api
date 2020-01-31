@@ -87,8 +87,9 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
     addLifecycleHook(vm, 'destroyed', destroyed)
 
-    const res = vm.$options.data.apply(vm)
-    vm.$options.data = () => ({ ...res, ...data(vm) })
+    const { data: rootData = () => ({}) } = vm.$options
+
+    vm.$options.data = () => ({ ...rootData.apply(vm), ...data(vm) })
 
     const constantsObject = constants(vm)
     const constantsKeys = Object.keys(constantsObject)
