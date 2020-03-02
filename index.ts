@@ -106,6 +106,10 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
     const watchKeys = Object.keys(watch)
 
+    if (vm.$options.watch === undefined) {
+      vm.$options.watch = {}
+    }
+
     for (const key of watchKeys) {
       vm.$options.watch[key] = (...args: unknown[]) => watch[key](vm, ...args)
     }
