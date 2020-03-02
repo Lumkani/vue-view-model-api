@@ -27,6 +27,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     methods = {},
     computed = {},
     vuex = {},
+    watch = () => ({}),
     validations = () => ({}),
     data = () => ({}),
     constants = () => ({}),
@@ -102,6 +103,8 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
         enumerable: false,
       })
     }
+
+    vm.$options.watch = watch(vm)
   }
 }
 
