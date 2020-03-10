@@ -20,6 +20,18 @@ const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
   }
 }
 
+const addWatchers = (vm: any, watchers: { [key: string]: (vm: any, ...args: unknown[]) => void }) => {
+  const watchKeys = Object.keys(watchers)
+
+  if (vm.$options.watch === undefined) {
+    vm.$options.watch = {}
+  }
+
+  for (const key of watchKeys) {
+    vm.$options.watch[key] = (...args: unknown[]) => watchers[key](vm, ...args)
+  }
+}
+
 // @ts-ignore
 const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
   const { ViewModel = {} } = vm.$options
@@ -104,15 +116,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
       })
     }
 
-    const watchKeys = Object.keys(watch)
-
-    if (vm.$options.watch === undefined) {
-      vm.$options.watch = {}
-    }
-
-    for (const key of watchKeys) {
-      vm.$options.watch[key] = (...args: unknown[]) => watch[key](vm, ...args)
-    }
+    addWatchers(vm, watch)
   }
 }
 
