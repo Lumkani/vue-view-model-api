@@ -46,7 +46,7 @@ const TextViewModel = {
   data: () => ({
     text: null,
   }),
-  mounted: async () => {
+  mounted: async (vm) => {
     const textData = await someAPI()
     
     vm.text = textData
