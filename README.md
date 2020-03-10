@@ -23,6 +23,7 @@ Vue.use(ViewModelPlugin)
 
 ## Basic Example
 
+#### Class-based Syntax
 ```javascript
 class TextViewModel {
   static data = () => ({
@@ -35,6 +36,24 @@ class TextViewModel {
     vm.text = textData
   }
 }
+
+export { TextViewModel }
+```
+#### Object-literal syntax
+
+```javascript
+const TextViewModel = {
+  data: () => ({
+    text: null,
+  }),
+  mounted: async () => {
+    const textData = await someAPI()
+    
+    vm.text = textData
+  }
+}
+
+export { TextViewModel }
 ```
 
 ```vue
