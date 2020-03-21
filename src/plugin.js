@@ -5,11 +5,7 @@ import {
   mapGetters,
 } from 'vuex'
 
-interface ViewModelConfig {
-  validators?: object;
-}
-
-const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
+const addLifecycleHook = (vm, hookName, hook) => {
   if (Array.isArray(vm.$options[hookName])) {
     vm.$options[hookName] = [
       ...vm.$options[hookName],
@@ -20,7 +16,7 @@ const addLifecycleHook = (vm: any, hookName: string, hook: Function) => {
   }
 }
 
-const addWatchers = (vm: any, watchers: { [key: string]: (vm: any, ...args: unknown[]) => void }) => {
+const addWatchers = (vm, watchers) => {
   const watchKeys = Object.keys(watchers)
 
   if (vm.$options.watch === undefined) {
@@ -28,12 +24,11 @@ const addWatchers = (vm: any, watchers: { [key: string]: (vm: any, ...args: unkn
   }
 
   for (const key of watchKeys) {
-    vm.$options.watch[key] = (...args: unknown[]) => watchers[key](vm, ...args)
+    vm.$options.watch[key] = (...args) => watchers[key](vm, ...args)
   }
 }
 
-// @ts-ignore
-const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
+const convertClassViewModelToOptionsAPI = (vm, options) => {
   const { ViewModel = {} } = vm.$options
   const {
     methods = {},
@@ -57,9 +52,9 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
-      .map(option => Object.keys(option).reduce((result: object, val: string) => ({
+      .map(option => Object.keys(option).reduce((result, val) => ({
         ...result,
-        [val]: (...args: any[]) => option[val](vm, ...args),
+        [val]: (...args) => option[val](vm, ...args),
       }), {}))
 
     const {
@@ -121,7 +116,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
 }
 
 export const ViewModelPlugin = {
-  install(vue: Vue.VueConstructor, options: ViewModelConfig = {}) {
+  install(vue, options = {}) {
     vue.mixin({
       beforeCreate() {
         convertClassViewModelToOptionsAPI(this, options)
