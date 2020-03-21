@@ -1,10 +1,3 @@
-import {
-  mapState,
-  mapActions,
-  mapMutations,
-  mapGetters,
-} from 'vuex'
-
 const addLifecycleHook = (vm, hookName, hook) => {
   if (Array.isArray(vm.$options[hookName])) {
     vm.$options[hookName] = [
@@ -33,7 +26,6 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
   const {
     methods = {},
     computed = {},
-    vuex = {},
     watch = {},
     validations = () => ({}),
     data = () => ({}),
@@ -57,26 +49,14 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
         [val]: (...args) => option[val](vm, ...args),
       }), {}))
 
-    const {
-      state = {},
-      getters = {},
-      mutations = {},
-      actions = {},
-    } = vuex
-
     vm.$options.methods = {
       ...vm.$options.methods,
       ...newMethods,
-      ...mapMutations(mutations),
-      ...mapActions(actions),
     }
-
 
     vm.$options.computed = {
       ...vm.$options.computed,
       ...newComputedProps,
-      ...mapState(state),
-      ...mapGetters(getters),
     }
 
     const newValidators = {
@@ -117,8 +97,31 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
 
 export const ViewModelPlugin = {
   install(vue, options = {}) {
+    const { setup = () => {}, modifiers = [] } = options
+
     vue.mixin({
       beforeCreate() {
+        for (const modifier of modifiers) {
+          const vm = this
+    
+          modifier({
+            vm,
+            ViewModel: vm.$options.ViewModel,
+            addToMethods(methods) {
+              vm.$options.methods = {
+                ...vm.$options.methods,
+                ...methods,
+              }
+            },
+            addToComputed(computed) {
+              vm.$options.computed = {
+                ...vm.$options.computed,
+                ...computed
+              }
+            }
+          })
+        }
+
         convertClassViewModelToOptionsAPI(this, options)
       },
     })
