@@ -47,6 +47,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     created = () => {},
     beforeMount = () => {},
     mounted = () => {},
+    activated = () => {},
     beforeUpdate = () => {},
     updated = () => {},
     beforeDestroy = () => {},
@@ -95,6 +96,7 @@ const convertClassViewModelToOptionsAPI = (vm, options: ViewModelConfig) => {
     addLifecycleHook(vm, 'created', created)
     addLifecycleHook(vm, 'beforeMount', beforeMount)
     addLifecycleHook(vm, 'mounted', mounted)
+    addLifecycleHook(vm, 'activated', activated)
     addLifecycleHook(vm, 'beforeUpdate', beforeUpdate)
     addLifecycleHook(vm, 'updated', updated)
     addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
