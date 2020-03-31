@@ -27,8 +27,6 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     methods = {},
     computed = {},
     watch = {},
-    validations = () => ({}),
-    data = () => ({}),
     constants = () => ({}),
     beforeCreate = () => {},
     created = () => {},
@@ -59,14 +57,6 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
       ...newComputedProps,
     }
 
-    const newValidators = {
-      ...options.validators
-    }
-
-    const isDynamicValidationFn = typeof validations(newValidators) === 'function'
-
-    vm.$options.validations = isDynamicValidationFn ? () => validations(newValidators)(vm) : validations(newValidators)
-
     addLifecycleHook(vm, 'created', created)
     addLifecycleHook(vm, 'beforeMount', beforeMount)
     addLifecycleHook(vm, 'mounted', mounted)
@@ -74,10 +64,6 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     addLifecycleHook(vm, 'updated', updated)
     addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
     addLifecycleHook(vm, 'destroyed', destroyed)
-
-    const { data: rootData = () => ({}) } = vm.$options
-
-    vm.$options.data = () => ({ ...rootData.apply(vm), ...data(vm) })
 
     const constantsObject = constants(vm)
     const constantsKeys = Object.keys(constantsObject)
@@ -103,7 +89,7 @@ export const ViewModelPlugin = {
       beforeCreate() {
         for (const modifier of modifiers) {
           const vm = this
-    
+          
           modifier({
             vm,
             ViewModel: vm.$options.ViewModel,
@@ -118,7 +104,7 @@ export const ViewModelPlugin = {
                 ...vm.$options.computed,
                 ...computed
               }
-            }
+            },
           })
         }
 
