@@ -51,7 +51,7 @@ new Vue({
 })
 ```
 
-Now you can do this within your ViewModel, there you go, you built a plugin for a plugin :sweat_smile:
+Now you can do this within your ViewModel, there you go, you built a plugin for a plugin :sweat_smile: We can can actually wrap our `addVuex` modifier as a NPM package and make it available for those that are using the ViewModel API but want this functionality
 
 ```javascript
 class ViewModel {
