@@ -1,5 +1,6 @@
 module.exports = {
   themeConfig: {
+    title: 'View Model API',
     sidebar: [
       '/',
       '/guide/',
