@@ -1,25 +1,33 @@
 <template>
-  <p>{{ name }} {{ hello }}</p>
+  <div>
+    <input v-model="name">
+    <p>{{ name }}</p>
+    {{ $v }}
+  </div>
 </template>
 
 <script>
+import required from 'vuelidate/lib/validators/required'
+import maxLength from 'vuelidate/lib/validators/maxLength'
+
 export default {
   ViewModel: {
     data: () => ({
-      name: "Shailen"
+      name: null
     }),
-    mounted(vm) {
-      setTimeout(() => {
-        vm.name = "Liam"
-        vm.helloUpdate()
-      }, 3000)
-    },
-    vuex: {
-      state: {
-        hello: (state) => state.hello, 
-      },
-      mutations: ['helloUpdate'],
-    }
-  }
+    validations: () => ({
+      name: {
+        required,
+        maxLength: maxLength(10)
+      }
+    }),
+    // mounted: console.log
+  },
+  // validations: {
+  //   name: {
+  //     required,
+  //     maxLength: maxLength(10)
+  //   }
+  // }
 }
 </script>

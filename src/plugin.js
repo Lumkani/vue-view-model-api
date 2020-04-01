@@ -39,33 +39,26 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     destroyed= () => {},
   } = ViewModel
 
-  if (!vm.$options.data) {
-    vm.$options.data = () => ({})
-  }
-
-  const originalData = vm.$options.data
-
-  vm.$options.data = () => ({ ...data(vm), ...originalData.apply(vm) })
-
+  
   beforeCreate(vm)
-
+  
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
-      .map(option => Object.keys(option).reduce((result, val) => ({
-        ...result,
-        [val]: (...args) => option[val](vm, ...args),
-      }), {}))
-
+    .map(option => Object.keys(option).reduce((result, val) => ({
+      ...result,
+      [val]: (...args) => option[val](vm, ...args),
+    }), {}))
+    
     vm.$options.methods = {
       ...vm.$options.methods,
       ...newMethods,
     }
-
+    
     vm.$options.computed = {
       ...vm.$options.computed,
       ...newComputedProps,
     }
-
+    
     addLifecycleHook(vm, 'created', created)
     addLifecycleHook(vm, 'beforeMount', beforeMount)
     addLifecycleHook(vm, 'mounted', mounted)
@@ -73,9 +66,12 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     addLifecycleHook(vm, 'updated', updated)
     addLifecycleHook(vm, 'beforeDestroy', beforeDestroy)
     addLifecycleHook(vm, 'destroyed', destroyed)
-
+    
     const constantsObject = constants(vm)
     const constantsKeys = Object.keys(constantsObject)
+    
+    const { data: rootData = () => ({}) } = vm.$options
+    vm.$options.data = () => ({ ...rootData.apply(vm), ...data(vm) })
 
     for (const key of constantsKeys) {
       Object.defineProperty(vm, key, {
