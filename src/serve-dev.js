@@ -3,7 +3,6 @@ import Vuex, { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import { ViewModelPlugin } from '../dist/view-model-api.ssr'
-import { required } from 'vuelidate/lib/validators';
 
 Vue.config.productionTip = false;
 
