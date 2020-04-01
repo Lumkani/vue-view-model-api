@@ -1,3 +1,9 @@
+___
+meta:
+  - name: description
+    content: Modifiers allow you to build whatever features on top of the ViewModel API 
+___
+
 # Modifiers <Badge text="+v2.5.0" />
 
 *Modifiers* is a new concept that was introduced in `v2.5.0`, it is essentially an API that is exposed to allow you to add your own modifications to the ViewModel API. 
