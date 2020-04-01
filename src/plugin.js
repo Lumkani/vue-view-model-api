@@ -24,6 +24,7 @@ const addWatchers = (vm, watchers) => {
 const convertClassViewModelToOptionsAPI = (vm, options) => {
   const { ViewModel = {} } = vm.$options
   const {
+    data = () => ({}),
     methods = {},
     computed = {},
     watch = {},
@@ -37,6 +38,14 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     beforeDestroy = () => {},
     destroyed= () => {},
   } = ViewModel
+
+  if (!vm.$options.data) {
+    vm.$options.data = () => ({})
+  }
+
+  const originalData = vm.$options.data
+
+  vm.$options.data = () => ({ ...data(vm), ...originalData.apply(vm) })
 
   beforeCreate(vm)
 

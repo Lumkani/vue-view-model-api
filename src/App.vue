@@ -8,10 +8,10 @@ export default {
     data: () => ({
       name: "Shailen"
     }),
-    mounted: (vm) => {
+    mounted(vm) {
       setTimeout(() => {
         vm.name = "Liam"
-      }, 2000)
+      }, 3000)
     }
   }
 }
