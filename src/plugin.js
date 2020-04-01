@@ -96,12 +96,14 @@ export const ViewModelPlugin = {
 
     vue.mixin({
       beforeCreate() {
+        const { ViewModel = {} } = this.$options
+
         for (const modifier of modifiers) {
           const vm = this
           
           modifier({
             vm,
-            ViewModel: vm.$options.ViewModel,
+            ViewModel,
             addToMethods(methods) {
               vm.$options.methods = {
                 ...vm.$options.methods,

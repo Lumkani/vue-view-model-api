@@ -1,5 +1,5 @@
 <template>
-  <p>{{ name }}</p>
+  <p>{{ name }} {{ hello }}</p>
 </template>
 
 <script>
@@ -11,7 +11,14 @@ export default {
     mounted(vm) {
       setTimeout(() => {
         vm.name = "Liam"
+        vm.helloUpdate()
       }, 3000)
+    },
+    vuex: {
+      state: {
+        hello: (state) => state.hello, 
+      },
+      mutations: ['helloUpdate'],
     }
   }
 }
