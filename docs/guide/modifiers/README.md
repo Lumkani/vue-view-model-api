@@ -1,8 +1,8 @@
-___
+---
 meta:
   - name: description
     content: Modifiers allow you to build whatever features on top of the ViewModel API 
-___
+---
 
 # Modifiers <Badge text="+v2.5.0" />
 
@@ -49,4 +49,18 @@ Vue.use(ViewModelPlugin, {
 new Vue({
   el: '#app'
 })
+```
+
+Now you can do this within your ViewModel, there you go, you built a plugin for a plugin :sweat_smile:
+
+```javascript
+class ViewModel {
+  static vuex = {
+    state: {
+      name: (state) => state.name
+    },
+    ...
+    ...
+  }
+}
 ```
