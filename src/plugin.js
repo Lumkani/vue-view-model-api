@@ -88,14 +88,15 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
 
 export const ViewModelPlugin = {
   install(vue, options = {}) {
-    const { setup = () => {}, modifiers = [] } = options
+    const { modifiers = [] } = options
 
     vue.mixin({
       beforeCreate() {
         const { ViewModel = {} } = this.$options
 
+        const vm = this
+
         for (const modifier of modifiers) {
-          const vm = this
           
           modifier({
             vm,
@@ -115,7 +116,7 @@ export const ViewModelPlugin = {
           })
         }
 
-        convertClassViewModelToOptionsAPI(this, options)
+        convertClassViewModelToOptionsAPI(vm, options)
       },
     })
   },
