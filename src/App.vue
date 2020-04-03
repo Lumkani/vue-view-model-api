@@ -21,13 +21,6 @@ export default {
         maxLength: maxLength(10)
       }
     }),
-    // mounted: console.log
   },
-  // validations: {
-  //   name: {
-  //     required,
-  //     maxLength: maxLength(10)
-  //   }
-  // }
 }
 </script>
