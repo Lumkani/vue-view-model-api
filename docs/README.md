@@ -7,7 +7,7 @@
 
 ## Summary
 
-An additive way of writing Vue components with dependency injection
+An additive way of writing Vue components for better code organization and testability
 
 ## Installation
 

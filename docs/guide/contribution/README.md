@@ -14,6 +14,8 @@ git clone git@github.com:Lumkani/vue-view-model-api.git
 
 Node.js version `>=8` is required, and also the project makes use of [PNPM](https://pnpm.js.org/) for managing packages. Make sure you have these installed
 
+> The project uses a `.nvmrc` file to maintain a consistent Node.js version but most likely this won't affect you
+
 ```shell
 pnpm install # or pnpm i
 ```

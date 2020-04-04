@@ -1,6 +1,8 @@
 nvm install
 
 echo ""
+echo "serve_docs                Serves the Vuepress documentation for development"
+echo ""
 echo "build_docs                Build the Vuepress documentation to static files"
 echo ""
 echo "build_package             Builds the plugin for distribution via NPM"
@@ -10,6 +12,10 @@ echo ""
 echo "upload_coverage           Uploads the Jest coverage to Codecov.io"
 echo ""
 echo "netlify_pipeline          Runs the necessary commands for the deployment of the documentation on Netlify"
+
+function serve_docs {
+  pnpx vuepress dev docs
+}
 
 function build_docs {
   cd docs/
