@@ -4,7 +4,8 @@ module.exports = {
     sidebar: [
       '/',
       '/guide/',
-      '/guide/modifiers/'
+      '/guide/modifiers/',
+      '/guide/contribution/'
     ],
     nav: [
       { text: 'Releases', link: 'https://github.com/Lumkani/vue-view-model-api/releases' }
