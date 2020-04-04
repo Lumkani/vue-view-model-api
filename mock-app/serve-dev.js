@@ -15,7 +15,7 @@ const addVuelidateModifier = (ctx) => {
 }
 
 const addConstantsAttrModifier = (ctx) => {
-  const { constants = () => {} } = ctx.ViewModel
+  const { constants = () => ({}) } = ctx.ViewModel
 
   const constantsObject = constants()
   const constantsKeys = Object.keys(constantsObject)
@@ -38,6 +38,10 @@ Vue.use(ViewModelPlugin, {
 })
 
 Vue.use(Vuelidate)
+
+
+// eslint-disable-next-line no-console
+Vue.config.errorHandler = (err) => console.log(`You can reassign a constant! ${err}`)
 
 new Vue({
   render: (h) => h(App),
