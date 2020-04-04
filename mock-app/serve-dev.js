@@ -6,30 +6,34 @@ import { ViewModelPlugin } from '../dist/view-model-api.ssr'
 
 Vue.config.productionTip = false;
 
+const addVuelidateModifier = (ctx) => {
+  const { validations } = ctx.ViewModel
+
+  if (validations) {
+    ctx.vm.$options.validations = validations()
+  }
+}
+
+const addConstantsAttrModifier = (ctx) => {
+  const { constants = () => {} } = ctx.ViewModel
+
+  const constantsObject = constants()
+  const constantsKeys = Object.keys(constantsObject)
+
+  for (const key of constantsKeys) {
+    Object.defineProperty(ctx.vm, key, {
+      value: Object.freeze(constantsObject[key]),
+      writable: false,
+      configurable: false,
+      enumerable: false,
+    })
+  }
+}
+
 Vue.use(ViewModelPlugin, {
   modifiers: [
-    (ctx) => {
-      const { validations } = ctx.ViewModel
-
-      if (validations) {
-        ctx.vm.$options.validations = validations()
-      }
-    },
-    (ctx) => {
-      const { constants = () => {} } = ctx.ViewModel
-
-      const constantsObject = constants(ctx.vm)
-      const constantsKeys = Object.keys(constantsObject)
-
-      for (const key of constantsKeys) {
-        Object.defineProperty(ctx.vm, key, {
-          value: Object.freeze(constantsObject[key]),
-          writable: false,
-          configurable: false,
-          enumerable: false,
-        })
-      }
-    },
+    addVuelidateModifier,
+    addConstantsAttrModifier,
   ],
 })
 
