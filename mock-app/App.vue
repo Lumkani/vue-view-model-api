@@ -6,14 +6,13 @@
     <p>Name Value: {{ name }}</p>
     <p v-if="$v.name.$invalid">Invalid Value<p>
     <p v-if="!$v.name.$invalid">Valid Value<p>
-    <p><strong>Vulidate name object</strong></p>
-    {{ $v }}
-
+    <p><strong>Vuelidate name object</strong></p>
+    <p>{{ $v }}</p>
     <p><strong>Constant example</strong></p>
     <label for="constant">constant: </label>
-    <input id="constant" v-model="MY_CONTSTANT">
-    <p>Constant value: {{ MY_CONTSTANT }}</p>
-    <p>* If you change the contsnat value, check your console for errors</p>
+    <input id="constant" v-model="MY_CONSTANT">
+    <p>Constant value: {{ MY_CONSTANT }}</p>
+    <p>* If you change the constant value, check your console for errors</p>
   </div>
 </template>
 
@@ -27,7 +26,7 @@ export default {
       name: null
     }),
     constants: () => ({
-      MY_CONTSTANT: 'SHOULD NOT CHANGE'
+      MY_CONSTANT: 'SHOULD NOT CHANGE'
     }),
     validations: () => ({
       name: {
