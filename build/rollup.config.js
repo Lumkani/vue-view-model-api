@@ -45,8 +45,8 @@ const baseConfig = {
       exclude: 'node_modules/**',
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
       plugins: [
-        '@babel/plugin-transform-runtime'
-      ]
+        '@babel/plugin-transform-runtime',
+      ],
     },
   },
 };
@@ -57,7 +57,7 @@ const external = [
   // list external dependencies, exactly the way it is written in the import statement.
   // eg. 'jquery'
   'vue',
-  'vuex'
+  'vuex',
 ];
 
 // UMD/IIFE shared settings: output.globals
@@ -66,7 +66,7 @@ const globals = {
   // Provide global variable names to replace your external imports
   // eg. jquery: '$'
   vue: 'Vue',
-  vuex: 'Vuex'
+  vuex: 'Vuex',
 };
 
 // Customize configs for individual targets

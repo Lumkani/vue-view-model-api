@@ -1,20 +1,20 @@
 import { createLocalVue } from '@vue/test-utils'
 import { ViewModelPlugin } from '../../src/plugin'
 
-const localVue = createLocalVue()
+const LocalVue = createLocalVue()
 
-localVue.config.silent = true
+LocalVue.config.silent = true
 
-localVue.use(ViewModelPlugin)
+LocalVue.use(ViewModelPlugin)
 
 describe('Test Data', () => {
   test('Data properties should update when reassigned', () => {
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         data: () => ({
-          value: 10
-        })
-      }
+          value: 10,
+        }),
+      },
     })
 
     expect(vm.value).toBe(10)
@@ -25,17 +25,17 @@ describe('Test Data', () => {
   })
 
   test('Data should be merged if defined on ViewModel and Options API', () => {
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         data: () => ({
-          value: 10
-        })
+          value: 10,
+        }),
       },
       data() {
         return {
           value2: 10,
         }
-      }
+      },
     })
 
     expect(vm).toHaveProperty('value')

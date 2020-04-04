@@ -53,6 +53,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
     "husky": "^4.2.3",
     "jest": "^25.2.7",
     "minimist": "^1.2.0",
@@ -75,7 +76,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npx jest"
+      "pre-push": "pnpx eslint --ext .js . && npx jest"
     }
   }
 }

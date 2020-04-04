@@ -1,36 +1,36 @@
 import { createLocalVue } from '@vue/test-utils'
 import { ViewModelPlugin } from '../../src/plugin'
 
-const localVue = createLocalVue()
+const LocalVue = createLocalVue()
 
-localVue.config.silent = true
+LocalVue.config.silent = true
 
-localVue.use(ViewModelPlugin)
+LocalVue.use(ViewModelPlugin)
 
 describe('Test Methods', () => {
   test('Can call a method declared on the ViewModel and update state', () => {
     const methods = {
       click: (vm) => {
         vm.isUpdated = true
-      }
+      },
     }
 
     const clickSpy = jest.spyOn(methods, 'click')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         data: () => ({
           isUpdated: false,
         }),
         methods: {
-          click: methods.click
-        }
-      }
+          click: methods.click,
+        },
+      },
     })
 
     vm.click()
 
-    const [[ vmRef ]] = clickSpy.mock.calls
+    const [[vmRef]] = clickSpy.mock.calls
 
     expect(clickSpy).toBeCalledTimes(1)
     expect(vm.isUpdated).toBe(true)
@@ -43,27 +43,27 @@ describe('Test Methods', () => {
     const methods = {
       click: (vm, ...args) => {
         vm.args = args
-      }
+      },
     }
-    
+
     const args = ['a', 'b', 'c']
 
     const clickSpy = jest.spyOn(methods, 'click')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         data: () => ({
-          args: []
+          args: [],
         }),
         methods: {
-          click: methods.click
-        }
-      }
+          click: methods.click,
+        },
+      },
     })
 
     vm.click(...args)
 
-    const [[ vmRef ]] = clickSpy.mock.calls
+    const [[vmRef]] = clickSpy.mock.calls
 
     expect(vm.args).toMatchObject(args)
     expect(vm._uid).toBe(vmRef._uid)
@@ -78,21 +78,21 @@ describe('Test Methods', () => {
 
     const clickSpy = jest.spyOn(methods, 'click')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         methods: {
-          click: methods.click
-        }
+          click: methods.click,
+        },
       },
       methods: {
-        click2: methods.click
-      }
+        click2: methods.click,
+      },
     })
 
     vm.click()
     vm.click2()
 
-    const [[ vmRef ]] = clickSpy.mock.calls
+    const [[vmRef]] = clickSpy.mock.calls
 
     expect(clickSpy).toBeCalledTimes(2)
     expect(vm._uid).toBe(vmRef._uid)

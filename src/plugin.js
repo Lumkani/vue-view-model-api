@@ -35,7 +35,7 @@ const convertClassViewModelToOptionsAPI = (vm) => {
     beforeUpdate = () => {},
     updated = () => {},
     beforeDestroy = () => {},
-    destroyed= () => {},
+    destroyed = () => {},
     activated = () => {},
     deactivated = () => {},
     errorCaptured = () => {},
@@ -46,7 +46,7 @@ const convertClassViewModelToOptionsAPI = (vm) => {
 
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
-      .map(option => Object.keys(option).reduce((result, val) => ({
+      .map((option) => Object.keys(option).reduce((result, val) => ({
         ...result,
         [val]: (...args) => option[val](vm, ...args),
       }), {}))
@@ -90,7 +90,6 @@ export const ViewModelPlugin = {
         const vm = this
 
         for (const modifier of modifiers) {
-
           modifier({
             vm,
             ViewModel,

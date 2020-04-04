@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils'
 import { ViewModelPlugin } from '../../src/plugin'
 
-const localVue = createLocalVue()
+const LocalVue = createLocalVue()
 
-localVue.config.silent = true
+LocalVue.config.silent = true
 
-localVue.use(ViewModelPlugin)
+LocalVue.use(ViewModelPlugin)
 
 const lifecycleHooks = {
   beforeCreate: () => {},
@@ -25,13 +25,13 @@ describe('Test lifecycle hooks', () => {
   test('[ beforeCreate ] should be called', () => {
     const beforeCreateHookSpy = jest.spyOn(lifecycleHooks, 'beforeCreate')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         beforeCreate: lifecycleHooks.beforeCreate,
-      }
+      },
     })
 
-    const [[ vmRef ]] = beforeCreateHookSpy.mock.calls
+    const [[vmRef]] = beforeCreateHookSpy.mock.calls
 
     expect(beforeCreateHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -42,13 +42,13 @@ describe('Test lifecycle hooks', () => {
   test('[ created ] should be called', () => {
     const createdHookSpy = jest.spyOn(lifecycleHooks, 'created')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
-        created: lifecycleHooks.created
-      }
+        created: lifecycleHooks.created,
+      },
     })
 
-    const [[ vmRef ]] = createdHookSpy.mock.calls
+    const [[vmRef]] = createdHookSpy.mock.calls
 
     expect(createdHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -59,9 +59,9 @@ describe('Test lifecycle hooks', () => {
   test('[ beforeMount ] should be called', () => {
     const beforeMountHookSpy = jest.spyOn(lifecycleHooks, 'beforeMount')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render: (h) => (<span>Hello World</span>),
       ViewModel: {
@@ -69,7 +69,7 @@ describe('Test lifecycle hooks', () => {
       },
     })
 
-    const [[ vmRef ]] = beforeMountHookSpy.mock.calls
+    const [[vmRef]] = beforeMountHookSpy.mock.calls
 
     expect(beforeMountHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -80,9 +80,9 @@ describe('Test lifecycle hooks', () => {
   test('[ mounted ] should be called', () => {
     const mountedHookSpy = jest.spyOn(lifecycleHooks, 'mounted')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render: (h) => (<span>Hello World</span>),
       ViewModel: {
@@ -90,7 +90,7 @@ describe('Test lifecycle hooks', () => {
       },
     })
 
-    const [[ vmRef ]] = mountedHookSpy.mock.calls
+    const [[vmRef]] = mountedHookSpy.mock.calls
 
     expect(mountedHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -101,9 +101,9 @@ describe('Test lifecycle hooks', () => {
   test('[ beforeUpdate ] should be called', async () => {
     const beforeUpdateHookSpy = jest.spyOn(lifecycleHooks, 'beforeUpdate')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render(h) {
         return (<span>{this.isUpdated}</span>)
@@ -115,13 +115,13 @@ describe('Test lifecycle hooks', () => {
         beforeUpdate: lifecycleHooks.beforeUpdate,
         mounted(vm) {
           vm.isUpdated = true
-        }
+        },
       },
     })
 
     await vm.$nextTick()
 
-    const [[ vmRef ]] = beforeUpdateHookSpy.mock.calls
+    const [[vmRef]] = beforeUpdateHookSpy.mock.calls
 
     expect(beforeUpdateHookSpy).toBeCalledTimes(1)
     expect(vm.isUpdated).toBe(true)
@@ -133,9 +133,9 @@ describe('Test lifecycle hooks', () => {
   test('[ updated ] should be called', async () => {
     const updatedHookSpy = jest.spyOn(lifecycleHooks, 'updated')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render(h) {
         return (<span>{this.isUpdated}</span>)
@@ -147,13 +147,13 @@ describe('Test lifecycle hooks', () => {
         updated: lifecycleHooks.updated,
         mounted(vm) {
           vm.isUpdated = true
-        }
+        },
       },
     })
 
     await vm.$nextTick()
 
-    const [[ vmRef ]] = updatedHookSpy.mock.calls
+    const [[vmRef]] = updatedHookSpy.mock.calls
 
     expect(updatedHookSpy).toBeCalledTimes(1)
     expect(vm.isUpdated).toBe(true)
@@ -165,15 +165,15 @@ describe('Test lifecycle hooks', () => {
   test('[ beforeDestroy ] should be called', () => {
     const beforeDestroyHookSpy = jest.spyOn(lifecycleHooks, 'beforeDestroy')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
-        beforeDestroy: lifecycleHooks.beforeDestroy
+        beforeDestroy: lifecycleHooks.beforeDestroy,
       },
     })
 
     vm.$destroy()
 
-    const [[ vmRef ]] = beforeDestroyHookSpy.mock.calls
+    const [[vmRef]] = beforeDestroyHookSpy.mock.calls
 
     expect(beforeDestroyHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -182,15 +182,15 @@ describe('Test lifecycle hooks', () => {
   test('[ destroyed ] should be called', () => {
     const destroyHookSpy = jest.spyOn(lifecycleHooks, 'destroyed')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
-        destroyed: lifecycleHooks.destroyed
+        destroyed: lifecycleHooks.destroyed,
       },
     })
 
     vm.$destroy()
 
-    const [[ vmRef ]] = destroyHookSpy.mock.calls
+    const [[vmRef]] = destroyHookSpy.mock.calls
 
     expect(destroyHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -199,11 +199,11 @@ describe('Test lifecycle hooks', () => {
   test('[ activated ] should be called', () => {
     const activatedHookSpy = jest.spyOn(lifecycleHooks, 'activated')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
     let componentVm;
 
-    localVue.component('a-b-c', {
+    LocalVue.component('a-b-c', {
       render() {
         return (
           <span>Hello World</span>
@@ -213,11 +213,11 @@ describe('Test lifecycle hooks', () => {
         activated: lifecycleHooks.activated,
         beforeCreate(vm) {
           componentVm = vm
-        }
+        },
       },
     })
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render() {
         return (
@@ -228,7 +228,7 @@ describe('Test lifecycle hooks', () => {
       },
     })
 
-    const [[ vmRef ]] = activatedHookSpy.mock.calls
+    const [[vmRef]] = activatedHookSpy.mock.calls
 
     expect(activatedHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(componentVm._uid)
@@ -239,11 +239,11 @@ describe('Test lifecycle hooks', () => {
   test('[ deactivated ] should be called', async () => {
     const deactivatedHookSpy = jest.spyOn(lifecycleHooks, 'deactivated')
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
     let componentVm;
 
-    localVue.component('a-b-c', {
+    LocalVue.component('a-b-c', {
       render() {
         return (
           <span>Hello World</span>
@@ -253,11 +253,11 @@ describe('Test lifecycle hooks', () => {
         deactivated: lifecycleHooks.deactivated,
         beforeCreate(vm) {
           componentVm = vm
-        }
+        },
       },
     })
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       data() {
         return {
@@ -277,7 +277,7 @@ describe('Test lifecycle hooks', () => {
 
     await vm.$nextTick()
 
-    const [[ vmRef ]] = deactivatedHookSpy.mock.calls
+    const [[vmRef]] = deactivatedHookSpy.mock.calls
 
     expect(deactivatedHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(componentVm._uid)
@@ -292,9 +292,9 @@ describe('Test lifecycle hooks', () => {
 
     console.error = jest.fn()
 
-    document.body.innerHTML = `<div id="app"></div>`
+    document.body.innerHTML = '<div id="app"></div>'
 
-    localVue.component('b-a-c', {
+    LocalVue.component('b-a-c', {
       render() {
         return (
           this.show ? <span>Hello World</span> : this.click()
@@ -302,7 +302,7 @@ describe('Test lifecycle hooks', () => {
       },
     })
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       el: document.querySelector('#app'),
       render(h) {
         return (
@@ -312,11 +312,11 @@ describe('Test lifecycle hooks', () => {
         )
       },
       ViewModel: {
-        errorCaptured: lifecycleHooks.errorCaptured
+        errorCaptured: lifecycleHooks.errorCaptured,
       },
     })
 
-    const [[ vmRef ]] = errorCapturedHookSpy.mock.calls
+    const [[vmRef]] = errorCapturedHookSpy.mock.calls
 
     expect(errorCapturedHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
@@ -335,7 +335,7 @@ describe('Test lifecycle hooks', () => {
       hookSpies.push(jest.spyOn(lifecycleHooks, hook))
     })
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {},
     })
 
@@ -347,7 +347,7 @@ describe('Test lifecycle hooks', () => {
   test('Check if hook are merged when defined on the ViewModel and Options API', () => {
     const createdHookSpy = jest.spyOn(lifecycleHooks, 'created')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         created: lifecycleHooks.created,
       },

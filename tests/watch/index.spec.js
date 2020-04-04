@@ -1,36 +1,36 @@
 import { createLocalVue } from '@vue/test-utils'
 import { ViewModelPlugin } from '../../src/plugin'
 
-const localVue = createLocalVue()
+const LocalVue = createLocalVue()
 
-localVue.config.silent = true
+LocalVue.config.silent = true
 
-localVue.use(ViewModelPlugin)
+LocalVue.use(ViewModelPlugin)
 
 describe('Test Watchers', () => {
   test('Check if watcher is called when dependency changes', async () => {
     const watch = {
-      name: () => {}
+      name: () => {},
     }
 
     const watchSpy = jest.spyOn(watch, 'name')
 
-    const vm = new localVue({
+    const vm = new LocalVue({
       ViewModel: {
         data: () => ({
-          name: 'John'
+          name: 'John',
         }),
         watch: {
-          name: watch.name
-        }
-      }
+          name: watch.name,
+        },
+      },
     })
 
     vm.name = 'Jane'
 
     await vm.$nextTick()
 
-    const [[ vmRef, newValue, oldValue ]] = watchSpy.mock.calls
+    const [[vmRef, newValue, oldValue]] = watchSpy.mock.calls
 
     expect(watchSpy).toBeCalledTimes(1)
     expect(vm._uid).toBe(vmRef._uid)

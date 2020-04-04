@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex, { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
+// eslint-disable-next-line import/no-extraneous-dependencies
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import { ViewModelPlugin } from '../dist/view-model-api.ssr'
@@ -10,7 +10,7 @@ Vue.use(ViewModelPlugin, {
   modifiers: [
     (ctx) => {
       const { validations } = ctx.ViewModel
-      
+
       if (validations) {
         ctx.vm.$options.validations = validations()
       }
@@ -18,19 +18,19 @@ Vue.use(ViewModelPlugin, {
     (ctx) => {
       const { constants = () => {} } = ctx.ViewModel
 
-      const constantsObject = constants(vm)
+      const constantsObject = constants(ctx.vm)
       const constantsKeys = Object.keys(constantsObject)
 
       for (const key of constantsKeys) {
-        Object.defineProperty(vm, key, {
+        Object.defineProperty(ctx.vm, key, {
           value: Object.freeze(constantsObject[key]),
           writable: false,
           configurable: false,
           enumerable: false,
         })
       }
-    }
-  ]
+    },
+  ],
 })
 
 Vue.use(Vuelidate)
