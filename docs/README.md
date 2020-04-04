@@ -5,6 +5,8 @@
 [![codecov](https://codecov.io/gh/Lumkani/vue-view-model-api/branch/master/graph/badge.svg)](https://codecov.io/gh/Lumkani/vue-view-model-api)
 ![](https://img.shields.io/github/issues/Lumkani/vue-view-model-api)
 
+> **100%** code coverage was an accident, we are not crazy people :joy:
+
 ## Summary
 
 An additive way of writing Vue components for better code organization and testability
