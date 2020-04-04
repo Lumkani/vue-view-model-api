@@ -47,6 +47,7 @@
     "babel-preset-env": "^1.7.0",
     "codecov": "^3.6.5",
     "cross-env": "^6.0.3",
+    "husky": "^4.2.3",
     "jest": "^25.2.7",
     "minimist": "^1.2.0",
     "rollup": "^1.27.13",
