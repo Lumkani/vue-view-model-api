@@ -17,9 +17,19 @@ const addWatchers = (vm, watchers) => {
   }
 
   for (const key of watchKeys) {
+    const originalWatcher = vm.$options.watch[key]
+
+    let array = []
+
+    if (Array.isArray(!originalWatcher)) {
+      array = [originalWatcher]
+    } else {
+      array = originalWatcher
+    }
+
     vm.$options.watch[key] = [
       (...args) => watchers[key](vm, ...args),
-      ...vm.$options.watch[key] ? vm.$options.watch[key] : [],
+      ...array,
     ]
   }
 }
