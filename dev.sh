@@ -1,5 +1,5 @@
 nvm install
 
 function run_tests {
-  pnpx jest
+  pnpx jest --verbose
 }

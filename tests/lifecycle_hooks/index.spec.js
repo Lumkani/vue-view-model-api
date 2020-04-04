@@ -16,6 +16,8 @@ const lifecycleHooks = {
   updated: () => {},
   beforeDestroy: () => {},
   destroyed: () => {},
+  activated: () => {},
+  deactivated: () => {},
 }
 
 describe('Test lifecycle hooks', () => {
@@ -191,6 +193,95 @@ describe('Test lifecycle hooks', () => {
 
     expect(destroyHookSpy).toBeCalledTimes(1)
     expect(vmRef._uid).toBe(vm._uid)
+  })
+
+  test('[ activated ] should be called', () => {
+    const activatedHookSpy = jest.spyOn(lifecycleHooks, 'activated')
+
+    document.body.innerHTML = `<div id="app"></div>`
+
+    let componentVm;
+
+    localVue.component('a-b-c', {
+      render() {
+        return (
+          <span>Hello World</span>
+        )
+      },
+      ViewModel: {
+        activated: lifecycleHooks.activated,
+        beforeCreate(vm) {
+          componentVm = vm
+        }
+      },
+    })
+
+    const vm = new localVue({
+      el: document.querySelector('#app'),
+      render() {
+        return (
+          <keep-alive>
+            <a-b-c />
+          </keep-alive>
+        )
+      },
+    })
+
+    const [[ vmRef ]] = activatedHookSpy.mock.calls
+
+    expect(activatedHookSpy).toBeCalledTimes(1)
+    expect(vmRef._uid).toBe(componentVm._uid)
+
+    vm.$destroy()
+  })
+
+  test('[ deactivated ] should be called', async () => {
+    const deactivatedHookSpy = jest.spyOn(lifecycleHooks, 'deactivated')
+
+    document.body.innerHTML = `<div id="app"></div>`
+
+    let componentVm;
+
+    localVue.component('a-b-c', {
+      render() {
+        return (
+          <span>Hello World</span>
+        )
+      },
+      ViewModel: {
+        deactivated: lifecycleHooks.deactivated,
+        beforeCreate(vm) {
+          componentVm = vm
+        }
+      },
+    })
+
+    const vm = new localVue({
+      el: document.querySelector('#app'),
+      data() {
+        return {
+          show: true,
+        }
+      },
+      render() {
+        return (
+          <keep-alive>
+            {this.show ? <a-b-c /> : {}}
+          </keep-alive>
+        )
+      },
+    })
+
+    vm.show = false
+
+    await vm.$nextTick()
+
+    const [[ vmRef ]] = deactivatedHookSpy.mock.calls
+
+    expect(deactivatedHookSpy).toBeCalledTimes(1)
+    expect(vmRef._uid).toBe(componentVm._uid)
+
+    vm.$destroy()
   })
 
   test('No hooks should be called if none are added to the ViewModel object', () => {
