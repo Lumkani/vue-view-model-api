@@ -2,6 +2,7 @@
 
 ![](https://img.shields.io/npm/v/@lumkani/view-model-api)
 ![](https://img.shields.io/npm/dw/@lumkani/view-model-api)
+[![codecov](https://codecov.io/gh/Lumkani/vue-view-model-api/branch/master/graph/badge.svg)](https://codecov.io/gh/Lumkani/vue-view-model-api)
 ![](https://img.shields.io/github/issues/Lumkani/vue-view-model-api)
 
 ## Summary
