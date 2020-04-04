@@ -76,7 +76,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "pnpx eslint --ext .js . && npx jest"
+      "pre-push": "npx eslint --ext .js . && npx jest"
     }
   }
 }
