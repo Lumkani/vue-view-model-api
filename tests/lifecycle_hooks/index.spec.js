@@ -344,7 +344,7 @@ describe('Test lifecycle hooks', () => {
     })
   })
 
-  test.only('Check if hook are merged when defined on the ViewModel and Options API', () => {
+  test('Check if hook are merged when defined on the ViewModel and Options API', () => {
     const createdHookSpy = jest.spyOn(lifecycleHooks, 'created')
 
     const vm = new localVue({
