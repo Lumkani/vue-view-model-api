@@ -21,7 +21,7 @@ const addWatchers = (vm, watchers) => {
   }
 }
 
-const convertClassViewModelToOptionsAPI = (vm, options) => {
+const convertClassViewModelToOptionsAPI = (vm) => {
   const { ViewModel = {} } = vm.$options
   const {
     data = () => ({}),
@@ -41,26 +41,26 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     errorCaptured = () => {},
   } = ViewModel
 
-  
+
   beforeCreate(vm)
-  
+
   if (Object.keys(ViewModel).length) {
     const [newMethods, newComputedProps] = [methods, computed]
-    .map(option => Object.keys(option).reduce((result, val) => ({
-      ...result,
-      [val]: (...args) => option[val](vm, ...args),
-    }), {}))
-    
+      .map(option => Object.keys(option).reduce((result, val) => ({
+        ...result,
+        [val]: (...args) => option[val](vm, ...args),
+      }), {}))
+
     vm.$options.methods = {
       ...vm.$options.methods,
       ...newMethods,
     }
-    
+
     vm.$options.computed = {
       ...vm.$options.computed,
       ...newComputedProps,
     }
-    
+
     addLifecycleHook(vm, 'created', created)
     addLifecycleHook(vm, 'beforeMount', beforeMount)
     addLifecycleHook(vm, 'mounted', mounted)
@@ -71,7 +71,7 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     addLifecycleHook(vm, 'activated', activated)
     addLifecycleHook(vm, 'deactivated', deactivated)
     addLifecycleHook(vm, 'errorCaptured', errorCaptured)
-    
+
     const { data: rootData = () => ({}) } = vm.$options
     vm.$options.data = () => ({ ...rootData.apply(vm), ...data(vm) })
 
@@ -90,7 +90,7 @@ export const ViewModelPlugin = {
         const vm = this
 
         for (const modifier of modifiers) {
-          
+
           modifier({
             vm,
             ViewModel,
@@ -99,7 +99,7 @@ export const ViewModelPlugin = {
 
               vm.$options.data = () => ({
                 ...rootData.apply(vm),
-                ...data
+                ...data,
               })
             },
             addToMethods(methods) {
@@ -111,7 +111,7 @@ export const ViewModelPlugin = {
             addToComputed(computed) {
               vm.$options.computed = {
                 ...vm.$options.computed,
-                ...computed
+                ...computed,
               }
             },
           })
