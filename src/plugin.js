@@ -28,7 +28,6 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     methods = {},
     computed = {},
     watch = {},
-    constants = () => ({}),
     beforeCreate = () => {},
     created = () => {},
     beforeMount = () => {},
