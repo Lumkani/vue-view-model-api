@@ -41,7 +41,7 @@ Vue.use(Vuelidate)
 
 
 // eslint-disable-next-line no-console
-Vue.config.errorHandler = (err) => console.log(`You can reassign a constant! ${err}`)
+Vue.config.errorHandler = (err) => console.log(`You can't reassign a constant! ${err}`)
 
 new Vue({
   render: (h) => h(App),
