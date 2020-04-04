@@ -18,6 +18,7 @@ const lifecycleHooks = {
   destroyed: () => {},
   activated: () => {},
   deactivated: () => {},
+  errorCaptured: () => {},
 }
 
 describe('Test lifecycle hooks', () => {
@@ -282,6 +283,47 @@ describe('Test lifecycle hooks', () => {
     expect(vmRef._uid).toBe(componentVm._uid)
 
     vm.$destroy()
+  })
+
+  test('[ errorCaptured ] should be called', async () => {
+    const errorCapturedHookSpy = jest.spyOn(lifecycleHooks, 'errorCaptured')
+
+    const originalError = console.error
+
+    console.error = jest.fn()
+
+    document.body.innerHTML = `<div id="app"></div>`
+
+    localVue.component('b-a-c', {
+      render() {
+        return (
+          this.show ? <span>Hello World</span> : this.click()
+        )
+      },
+    })
+
+    const vm = new localVue({
+      el: document.querySelector('#app'),
+      render(h) {
+        return (
+          <span>
+            <b-a-c />
+          </span>
+        )
+      },
+      ViewModel: {
+        errorCaptured: lifecycleHooks.errorCaptured
+      },
+    })
+
+    const [[ vmRef ]] = errorCapturedHookSpy.mock.calls
+
+    expect(errorCapturedHookSpy).toBeCalledTimes(1)
+    expect(vmRef._uid).toBe(vm._uid)
+
+
+    vm.$destroy()
+    console.error = originalError
   })
 
   test('No hooks should be called if none are added to the ViewModel object', () => {
