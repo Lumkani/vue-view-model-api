@@ -70,4 +70,31 @@ describe('Test Methods', () => {
 
     vm.$destroy()
   })
+
+  test('Methods should be merged when defined on ViewModel and Options API', () => {
+    const methods = {
+      click: () => {},
+    }
+
+    const clickSpy = jest.spyOn(methods, 'click')
+
+    const vm = new localVue({
+      ViewModel: {
+        methods: {
+          click: methods.click
+        }
+      },
+      methods: {
+        click2: methods.click
+      }
+    })
+
+    vm.click()
+    vm.click2()
+
+    const [[ vmRef ]] = clickSpy.mock.calls
+
+    expect(clickSpy).toBeCalledTimes(2)
+    expect(vm._uid).toBe(vmRef._uid)
+  })
 })
