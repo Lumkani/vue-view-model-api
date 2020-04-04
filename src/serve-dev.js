@@ -14,6 +14,21 @@ Vue.use(ViewModelPlugin, {
       if (validations) {
         ctx.vm.$options.validations = validations()
       }
+    },
+    (ctx) => {
+      const { constants = () => {} } = ctx.ViewModel
+
+      const constantsObject = constants(vm)
+      const constantsKeys = Object.keys(constantsObject)
+
+      for (const key of constantsKeys) {
+        Object.defineProperty(vm, key, {
+          value: Object.freeze(constantsObject[key]),
+          writable: false,
+          configurable: false,
+          enumerable: false,
+        })
+      }
     }
   ]
 })

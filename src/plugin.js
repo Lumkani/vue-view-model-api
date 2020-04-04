@@ -72,21 +72,9 @@ const convertClassViewModelToOptionsAPI = (vm, options) => {
     addLifecycleHook(vm, 'activated', activated)
     addLifecycleHook(vm, 'deactivated', deactivated)
     addLifecycleHook(vm, 'errorCaptured', errorCaptured)
-
-    const constantsObject = constants(vm)
-    const constantsKeys = Object.keys(constantsObject)
     
     const { data: rootData = () => ({}) } = vm.$options
     vm.$options.data = () => ({ ...rootData.apply(vm), ...data(vm) })
-
-    for (const key of constantsKeys) {
-      Object.defineProperty(vm, key, {
-        value: Object.freeze(constantsObject[key]),
-        writable: false,
-        configurable: false,
-        enumerable: false,
-      })
-    }
 
     addWatchers(vm, watch)
   }
