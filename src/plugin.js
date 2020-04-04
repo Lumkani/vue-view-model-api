@@ -94,6 +94,14 @@ export const ViewModelPlugin = {
           modifier({
             vm,
             ViewModel,
+            addToData(data) {
+              const { data: rootData = () => ({}) } = vm.$options
+
+              vm.$options.data = () => ({
+                ...rootData.apply(vm),
+                ...data
+              })
+            },
             addToMethods(methods) {
               vm.$options.methods = {
                 ...vm.$options.methods,
