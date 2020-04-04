@@ -15,6 +15,8 @@ function upload_coverage {
 }
 
 function netlify_pipeline {
+  npm i -g pnpm
+
   run_tests
   upload_coverage
   build_docs
