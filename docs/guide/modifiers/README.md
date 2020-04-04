@@ -4,9 +4,9 @@ meta:
     content: Modifiers allow you to build whatever features on top of the ViewModel API 
 ---
 
-# Modifiers <Badge text="+v2.5.0" />
+# Modifiers <Badge text="+v3.0.0" />
 
-*Modifiers* is a new concept that was introduced in `v2.5.0`, it is essentially an API that is exposed to allow you to add your own modifications to the ViewModel API. 
+*Modifiers* is a new concept that was introduced in `v3.0.0`, it is essentially an API that is exposed to allow you to add your own modifications to the ViewModel API. 
 
 The goal of the ViewModel is to map the existing Options API to a more dependency-injectable one. This means that the ViewModel API does not include anything that is not apart of the Vue's core such as *Vuex*, *Vue Router* and etc...
 
