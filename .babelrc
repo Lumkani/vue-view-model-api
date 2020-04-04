@@ -1,0 +1,13 @@
+{
+  "presets": ["@babel/preset-env"],
+  "env": {
+    "test": {
+      "presets": [["env", { "targets": { "node": "current" } }]],
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-proposal-class-properties",
+        "transform-vue-jsx"
+      ]
+    }
+  }
+}

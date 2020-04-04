@@ -1,3 +1,6 @@
 {
-  "netlify.site_id": "vue-view-model-api.netlify.com"
+  "netlify.site_id": "vue-view-model-api.netlify.com",
+  "eslint.validate": [
+    "javascript",
+  ],
 }

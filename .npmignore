@@ -1,0 +1,6 @@
+build
+docs
+node_modules
+src
+babel.config.js
+README.md
