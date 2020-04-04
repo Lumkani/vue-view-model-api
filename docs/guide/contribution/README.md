@@ -30,3 +30,11 @@ source dev.sh # or . dev.sh
 ```
 
 All commands are also available via the `package.json` *scripts* in case shell scripts do not work in your environment
+
+####  4. Mock app
+
+The project has a `mock-app` as an example. You can run it by using the command
+
+```
+npm run mock-app
+```
