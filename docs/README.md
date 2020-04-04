@@ -57,6 +57,8 @@ const TextViewModel = {
 export { TextViewModel }
 ```
 
+Then we import the `TextViewModel` into a `index.vue` file
+
 ```vue
 <template>
   <p>{{ text }}</p>
