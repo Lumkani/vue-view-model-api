@@ -23,7 +23,8 @@
     "build:ssr": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format cjs",
     "build:es": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format es",
     "build:unpkg": "cross-env NODE_ENV=production rollup --config build/rollup.config.js --format iife",
-    "test": "jest --verbose --coverage",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "serve_docs": "pnpx vuepress dev docs",
     "build_docs": "cd docs/ && pnpx vuepress build && cd ..",
     "build_package": "pnpm run build"

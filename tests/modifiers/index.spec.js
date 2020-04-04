@@ -41,6 +41,8 @@ describe('Test Modifiers', () => {
 
     expect(vm).toHaveProperty('click')
     expect(typeof vm.click).toBe('function')
+    vm.click()
+    expect(vm.name).toBe('Jane')
   })
 
   test('Check if modifier add computed props to Vue instance', () => {
