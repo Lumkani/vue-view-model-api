@@ -1,5 +1,14 @@
 nvm install
 
+echo ""
+echo "build_docs                Build the Vuepress documentation to static files"
+echo ""
+echo "run_tests                 Runs the Jest test suite"
+echo ""
+echo "upload_coverage           Uploads the Jest coverage to Codecov.io"
+echo ""
+echo "netlify_pipeline          Runs the necessary commands for the deployment of the documentation on Netlify"
+
 function build_docs {
   cd docs/
   pnpx vuepress build
@@ -11,7 +20,7 @@ function run_tests {
 }
 
 function upload_coverage {
-  pnpx codecov
+  pnpx codecov $@
 }
 
 function netlify_pipeline {
