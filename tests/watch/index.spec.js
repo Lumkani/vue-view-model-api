@@ -70,4 +70,43 @@ describe('Test Watchers', () => {
     expect(newValue).toBe('Jane')
     expect(oldValue).toBe('John')
   })
+
+  test('Watchers should be merged into an array when using a mixin, ViewModel and Options API', async () => {
+    const watch = {
+      name: () => {},
+    }
+
+    const watchSpy = jest.spyOn(watch, 'name')
+
+    LocalVue.mixin({
+      watch: {
+        name: watch.name,
+      },
+    })
+
+    const vm = new LocalVue({
+      ViewModel: {
+        data: () => ({
+          name: 'John',
+        }),
+        watch: {
+          name: watch.name,
+        },
+      },
+      watch: {
+        name: watch.name,
+      },
+    })
+
+    vm.name = 'Jane'
+
+    await vm.$nextTick()
+
+    const [[vmRef, newValue, oldValue]] = watchSpy.mock.calls
+
+    expect(watchSpy).toBeCalledTimes(3)
+    expect(vm._uid).toBe(vmRef._uid)
+    expect(newValue).toBe('Jane')
+    expect(oldValue).toBe('John')
+  })
 })
