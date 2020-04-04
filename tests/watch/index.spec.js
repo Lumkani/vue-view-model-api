@@ -42,7 +42,9 @@ describe('Test Watchers', () => {
     const watch = {
       name: () => {},
     }
+
     const watchSpy = jest.spyOn(watch, 'name')
+
     const vm = new LocalVue({
       ViewModel: {
         data: () => ({
@@ -56,9 +58,13 @@ describe('Test Watchers', () => {
         name: watch.name,
       },
     })
+
     vm.name = 'Jane'
+
     await vm.$nextTick()
+
     const [[vmRef, newValue, oldValue]] = watchSpy.mock.calls
+
     expect(watchSpy).toBeCalledTimes(2)
     expect(vm._uid).toBe(vmRef._uid)
     expect(newValue).toBe('Jane')
