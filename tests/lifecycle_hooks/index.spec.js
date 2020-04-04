@@ -336,13 +336,24 @@ describe('Test lifecycle hooks', () => {
     })
 
     const vm = new localVue({
-      ViewModel: {
-        destroyed: lifecycleHooks.destroyed
-      },
+      ViewModel: {},
     })
 
     hookSpies.forEach((hookSpy) => {
       expect(hookSpy).not.toBeCalledTimes(1)
     })
+  })
+
+  test.only('Check if hook are merged when defined on the ViewModel and Options API', () => {
+    const createdHookSpy = jest.spyOn(lifecycleHooks, 'created')
+
+    const vm = new localVue({
+      ViewModel: {
+        created: lifecycleHooks.created,
+      },
+      created: lifecycleHooks.created,
+    })
+
+    expect(createdHookSpy).toBeCalledTimes(2)
   })
 })
