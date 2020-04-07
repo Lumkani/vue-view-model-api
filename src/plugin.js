@@ -94,7 +94,7 @@ const convertClassViewModelToOptionsAPI = (vm) => {
   }
 }
 
-export const ViewModelPlugin = {
+const plugin = {
   install(vue, options = {}) {
     const { modifiers = [] } = options
 
@@ -135,4 +135,15 @@ export const ViewModelPlugin = {
       },
     })
   },
+}
+
+// eslint-disable-next-line no-console
+console.warn('The export "ViewModelPlugin" is now deprecated and will be removed in the next release, please use the export "ViewModel" instead')
+
+const ViewModelPlugin = plugin
+const ViewModel = plugin
+
+export {
+  ViewModelPlugin,
+  ViewModel,
 }
