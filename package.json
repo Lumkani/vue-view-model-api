@@ -27,7 +27,8 @@
     "test:coverage": "jest --coverage",
     "serve_docs": "pnpx vuepress dev docs",
     "build_docs": "cd docs/ && pnpx vuepress build && cd ..",
-    "build_package": "pnpm run build"
+    "build_package": "pnpm run build",
+    "postpublish": "git push && git push --tags"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
