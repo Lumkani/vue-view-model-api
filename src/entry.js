@@ -5,4 +5,4 @@ if (window !== 'undefined') {
   window.ViewModel = ViewModel
 }
 
-export { ViewModelPlugin }
+export { ViewModelPlugin, ViewModel }
