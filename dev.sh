@@ -66,7 +66,7 @@ function publish_package_prod {
   echo "Package version: $package_version"
   
   if [[ ! $package_version =~ "beta" ]]; then
-    npm publish --tag="beta"
+    npm publish
   else
     echo ""
     echo "You can only publish a package without [ beta ] in the name"
