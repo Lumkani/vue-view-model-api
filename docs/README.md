@@ -14,7 +14,7 @@ An additive way of writing Vue components for better code organization and testa
 ## Installation
 
 ```shell
-$ npm install @lumkani/view-model-api --save-dev
+$ npm install @lumkani/view-model-api --save
 ```
 
 ```javascript
