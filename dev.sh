@@ -14,6 +14,10 @@ echo ""
 echo "upload_coverage           Uploads the Jest coverage to Codecov.io"
 echo ""
 echo "netlify_pipeline          Runs the necessary commands for the deployment of the documentation on Netlify"
+echo ""
+echo "publish_package_beta      Publishes the package with the [ beta ] flag"
+echo ""
+echo "publish_package_prod      Publishes the package to production"
 
 function serve_docs {
   pnpx vuepress dev docs
@@ -39,6 +43,34 @@ function run_lint {
 
 function upload_coverage {
   pnpx codecov $@
+}
+
+function publish_package_beta {
+  package_version=$(node -p "require('./package.json').version")
+
+  echo ""
+  echo "Package version: $package_version"
+  
+  if [[ $package_version =~ "beta" ]]; then
+    npm publish --tag="beta"
+  else
+    echo ""
+    echo "You can only publish a package with [ beta ] in the name"
+  fi
+}
+
+function publish_package_prod {
+  package_version=$(node -p "require('./package.json').version")
+
+  echo ""
+  echo "Package version: $package_version"
+  
+  if [[ ! $package_version =~ "beta" ]]; then
+    npm publish --tag="beta"
+  else
+    echo ""
+    echo "You can only publish a package without [ beta ] in the name"
+  fi
 }
 
 function netlify_pipeline {
