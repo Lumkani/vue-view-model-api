@@ -2,7 +2,7 @@ import Vue from 'vue';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
-import { ViewModelPlugin } from '../dist/view-model-api.ssr'
+import { ViewModel } from '../dist/view-model-api.ssr'
 
 Vue.config.productionTip = false;
 
@@ -30,7 +30,7 @@ const addConstantsAttrModifier = (ctx) => {
   }
 }
 
-Vue.use(ViewModelPlugin, {
+Vue.use(ViewModel, {
   modifiers: [
     addVuelidateModifier,
     addConstantsAttrModifier,
@@ -38,7 +38,6 @@ Vue.use(ViewModelPlugin, {
 })
 
 Vue.use(Vuelidate)
-
 
 // eslint-disable-next-line no-console
 Vue.config.errorHandler = (err) => console.log(`You can't reassign a constant! ${err}`)
