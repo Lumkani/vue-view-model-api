@@ -6,6 +6,7 @@ import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve'
+import builtin from 'rollup-plugin-node-builtins'
 import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import minimist from 'minimist';
@@ -146,7 +147,8 @@ if (!argv.format || argv.format === 'iife') {
       vue(baseConfig.plugins.vue),
       babel(baseConfig.plugins.babel),
       commonjs(),
-      resolve(),
+      builtin(),
+      resolve({ preferBuiltins: true }),
       terser({
         output: {
           ecma: 5,

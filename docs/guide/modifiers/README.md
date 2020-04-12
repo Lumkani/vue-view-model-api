@@ -18,7 +18,7 @@ Let's say that you want to be able use Vuex within the ViewModel API, we can do 
 
 ```javascript
 import Vue from 'vue'
-import { ViewModelPlugin } from '@lumkani/view-model-api'
+import { ViewModel } from '@lumkani/view-model-api'
 import { mapState, mapGetters mapMutations, mapActions } from 'vuex'
 
 const addVuex = (ctx) => {
@@ -41,7 +41,7 @@ const addVuex = (ctx) => {
   })
 }
 
-Vue.use(ViewModelPlugin, {
+Vue.use(ViewModel, {
   modifiers: [addVuex]
 })
 
