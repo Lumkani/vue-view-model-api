@@ -19,9 +19,9 @@ $ npm install @lumkani/view-model-api --save-dev
 
 ```javascript
 import Vue from 'vue'
-import { ViewModelPlugin } from '@lumkani/view-model-api'
+import { ViewModel } from '@lumkani/view-model-api'
 
-Vue.use(ViewModelPlugin)
+Vue.use(ViewModel)
 ```
 
 ## Basic Example

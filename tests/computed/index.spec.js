@@ -1,11 +1,11 @@
 import { createLocalVue } from '@vue/test-utils'
-import { ViewModelPlugin } from '../../src/plugin'
+import { ViewModel } from '../../src/plugin'
 
 const LocalVue = createLocalVue()
 
 LocalVue.config.silent = true
 
-LocalVue.use(ViewModelPlugin)
+LocalVue.use(ViewModel)
 
 describe('Test Computed', () => {
   test('Check if computed property reevaluates when a dependency changes', () => {
