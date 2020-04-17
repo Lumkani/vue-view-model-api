@@ -1,8 +1,7 @@
-import { ViewModel, ViewModelPlugin } from './plugin'
+import { ViewModel } from './plugin'
 
 if (window !== 'undefined') {
   window.ViewModel = ViewModel
-  window.ViewModelPlugin = ViewModelPlugin
 }
 
-export { ViewModel, ViewModelPlugin }
+export { ViewModel }
